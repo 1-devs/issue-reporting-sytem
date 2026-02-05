@@ -1,5 +1,5 @@
 asgiref==3.9.1
-Django==5.2.5
+Django==5.2.7
 django-crispy-forms==2.4
 django-extensions==4.1
 djangorestframework==3.16.1
