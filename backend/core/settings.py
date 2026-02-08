@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+    'rest_framework',
+    'users',
+    'rest_framework_simplejwt.token_blacklist',
+    'django_rest_passwordreset'
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
