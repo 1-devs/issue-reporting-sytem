@@ -30,16 +30,9 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name' ,'phone_number']
+    REQUIRED_FIELDS = ['full_name' ,'password']
 
     def __str__(self):
         return f"{self.full_name} ({self.role})"
 
-    def save(self, *args, **kwargs):
-        # Logic: Ensure District Leaders only create Sector Leaders, etc.
-        if self.supervisor:
-            if self.role == 'SECTOR_LEADER' and self.supervisor.role != 'DISTRICT_LEADER':
-                raise ValueError("Sector Leaders must be supervised by District Leaders.")
-            if self.role == 'CELL_LEADER' and self.supervisor.role != 'SECTOR_LEADER':
-                raise ValueError("Cell Leaders must be supervised by Sector Leaders.")
-        super().save(*args, **kwargs)
+    

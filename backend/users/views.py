@@ -4,6 +4,8 @@ from .serializers import CustomUserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from .serializers import LeadercreationSerializer
+from .permissions import IsLeader
 
 # Create your views here.
 
@@ -42,3 +44,10 @@ class RegisterView(APIView):
         # Handle user registration logic here
         return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED) 
        
+
+class LeaderCreationView(generics.CreateAPIView):
+    serializer_class = LeadercreationSerializer
+    permission_classes = [IsLeader]
+
+    def perform_create(self, serializer):
+        serializer.save()
