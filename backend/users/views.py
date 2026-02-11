@@ -3,6 +3,7 @@ from rest_framework import generics
 from .serializers import CustomUserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 
 # Create your views here.
 
@@ -34,3 +35,10 @@ class PasswordChangeView(APIView):
         user.set_password(new_password)
         user.save()
         return Response({'message': 'Password changed successfully'})
+
+# Create your views here.
+class RegisterView(APIView):
+    def post(self, request):
+        # Handle user registration logic here
+        return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED) 
+       

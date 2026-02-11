@@ -12,3 +12,5 @@ dist/
 .DS_Store
 
 .history/
+backend/db.sqlite3
+*.sqlite3
