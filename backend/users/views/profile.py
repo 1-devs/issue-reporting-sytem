@@ -1,13 +1,7 @@
-from django.shortcuts import render
 from rest_framework import generics
-from .serializers import CustomUserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-from .serializers import LeadercreationSerializer
-from .permissions import IsLeader
-
-# Create your views here.
+from ..serializers.profileSer import CustomUserSerializer
 
 class ProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = CustomUserSerializer
@@ -15,11 +9,8 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         return self.request.user
 
-
 class PasswordChangeView(APIView):
-
     def update(self, request):
-
         old_password = request.data.get('old_password')
         new_password = request.data.get('new_password')
         confirm_password = request.data.get('confirm_password')
@@ -37,17 +28,3 @@ class PasswordChangeView(APIView):
         user.set_password(new_password)
         user.save()
         return Response({'message': 'Password changed successfully'})
-
-# Create your views here.
-class RegisterView(APIView):
-    def post(self, request):
-        # Handle user registration logic here
-        return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED) 
-       
-
-class LeaderCreationView(generics.CreateAPIView):
-    serializer_class = LeadercreationSerializer
-    permission_classes = [IsLeader]
-
-    def perform_create(self, serializer):
-        serializer.save()
