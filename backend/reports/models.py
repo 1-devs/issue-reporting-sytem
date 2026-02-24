@@ -2,23 +2,32 @@ from django.db import models
 from django.conf import settings
 
 class Issue(models.Model):
-    STATUS_CHOICES = (
+    # Categories based on your project requirements
+    CATEGORY_CHOICES = [
+        ('WATER', 'Water Supply'),
+        ('ROAD', 'Road/Infrastructure'),
+        ('ELECTRICITY', 'Electricity'),
+        ('SECURITY', 'Security'),
+        ('OTHER', 'Other'),
+    ]
+
+    STATUS_CHOICES = [
         ('PENDING', 'Pending'),
         ('IN_PROGRESS', 'In Progress'),
-        ('REPORTED_HIGHER', 'Reported to Higher Level'),
+        ('ESCALATED', 'Reported to Higher Level'),
         ('SOLVED', 'Solved'),
-    )
+    ]
 
     title = models.CharField(max_length=200)
     description = models.TextField()
-    category = models.CharField(max_length=100) # e.g., Water, Electricity, Security...
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     
-    # Location data (IDs from Rwanda API)
+    # Location data (ID from the external Rwanda API)
     location_id = models.IntegerField() 
-    reported_to_office = models.CharField(max_length=100) # e.g., "Kacyiru Cell"
+    location_name = models.CharField(max_length=255) # e.g., "Kigali > Gasabo > Kacyiru"
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
-    comment = models.TextField(blank=True, null=True)
+    comment = models.TextField(blank=True, null=True) # Latest leader comment
     photo = models.ImageField(upload_to='issue_photos/', blank=True, null=True)
     
     # Relationships

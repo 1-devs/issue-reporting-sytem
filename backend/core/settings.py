@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'users',
     'reports',
     'locations',
-]
 
-AUTH_USER_MODEL = 'users.CustomUser'
+    'rest_framework_simplejwt.token_blacklist',
+    'django_rest_passwordreset'
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
